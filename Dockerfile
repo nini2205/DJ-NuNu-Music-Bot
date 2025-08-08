@@ -20,9 +20,11 @@ RUN apk update && apk add --no-cache \
   libsodium \
   gcc \
   git
-
+  
 # Install pip dependencies
-RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt \
+ && pip3 install --no-cache-dir --upgrade yt-dlp \
+ && yt-dlp --rm-cache-dir || true
 
 # Clean up build dependencies
 RUN apk del .build-deps
